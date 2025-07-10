@@ -1,9 +1,3 @@
-Below is the README with strict fencing—every code section opens and closes, and all prose lives outside.
-Copy-paste straight into GitHub and the rendering will separate text from code cleanly.
-
-⸻
-
-
 # 🛠️  Baseline Template · Task-Master-Lite × Cursor
 
 A zero-dependency starter kit that gives you
@@ -18,7 +12,6 @@ Clone / copy this template into any fresh repo, run one command, and Cursor will
 
 ## ✨ What’s inside
 
-```text
 baseline_template/
 ├─ .cursor/
 │  └─ rules/
@@ -38,7 +31,6 @@ design.tokens.json is not shipped here.
 Each project creates it by copying & filling THEME_TEMPLATE.json
 into src/ui/design.tokens.json.
 
-⸻
 
 🚀 Quick-start
 
@@ -66,7 +58,6 @@ git commit -m "generate backlog from PRD"
 # 6  Open Cursor Auto mode → watch tasks execute
 
 
-⸻
 
 🛡️ Rules in play
 
@@ -76,15 +67,13 @@ Rule file	Enforces
 .cursor/rules/ui_theme.mdc	Cursor must import from the chosen library (e.g. shadcn) and use only tokens in src/ui/design.tokens.json.
 
 
-⸻
 
 🔧 Helper scripts (full code below)
 	•	seed_baseline.py — copies the baseline into a fresh repo and patches package.json.
 	•	backlog_gen.py — converts numbered ## headings in PRD.md into backlog tasks.
-```
-⸻
 
-tools/seed_baseline.py
+
+## Seed_baseline.py
 ```python
 #!/usr/bin/env python3
 """Copy baseline_template into a target repo."""
@@ -141,9 +130,7 @@ if __name__ == "__main__":
     main()
 ```
 
-⸻
-
-tools/backlog_gen.py
+## Backlog_gen.py
 ```python
 #!/usr/bin/env python3
 """Convert PRD.md headings → .backlog/tasks.json + tasks/*.md"""
@@ -185,7 +172,6 @@ flush()
 print(f"Generated {len(ledger)} tasks → .backlog/")
 ```
 
-⸻
 
 🖌️ Create src/ui/design.tokens.json
 	1.	Copy THEME_TEMPLATE.json → src/ui/design.tokens.json.
@@ -193,8 +179,5 @@ print(f"Generated {len(ledger)} tasks → .backlog/")
 	3.	Import tokens in tailwind.config.ts.
 	4.	ui_theme.mdc now forces Cursor to use only those tokens and the specified component library.
 
-⸻
 
 Happy building—fork, star, PRs welcome!
-
-*Everything outside triple backticks is plain markdown; only code and the folder tree are fenced.*
