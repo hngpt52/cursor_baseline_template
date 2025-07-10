@@ -85,7 +85,7 @@ Rule file	Enforces
 ⸻
 
 tools/seed_baseline.py
-
+```
 #!/usr/bin/env python3
 """Copy baseline_template into a target repo."""
 
@@ -139,12 +139,12 @@ def main():
 
 if __name__ == "__main__":
     main()
-
+```
 
 ⸻
 
 tools/backlog_gen.py
-
+```
 #!/usr/bin/env python3
 """Convert PRD.md headings → .backlog/tasks.json + tasks/*.md"""
 
@@ -183,7 +183,7 @@ flush()
 (pathlib.Path(".backlog/tasks.json")
  ).write_text(json.dumps(ledger, indent=2))
 print(f"Generated {len(ledger)} tasks → .backlog/")
-
+```
 
 ⸻
 
