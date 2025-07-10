@@ -178,11 +178,12 @@ flush()
 print(f"Generated {len(ledger)} tasks → .backlog/")
 ```
 
-
+```text
 🖌️ Create src/ui/design.tokens.json
 	1.	Copy THEME_TEMPLATE.json → src/ui/design.tokens.json.
 	2.	Fill colours, radii, shadows, fonts, component overrides.
 	3.	Import tokens in tailwind.config.ts.
 	4.	ui_theme.mdc now forces Cursor to use only those tokens and the specified component library.
+    ```
 
 ### Happy building—fork, star, PRs welcome!
