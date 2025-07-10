@@ -1,0 +1,25 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+---
+description: Lightweight task queue – offline
+alwaysApply: true
+priority: 100
+---
+
+# How the agent MUST work
+1. Read .backlog/tasks.json.
+2. Choose the lowest-ID task whose
+   • status == "TODO", and
+   • every ID in `deps` is "DONE".
+3. Open .backlog/tasks/<id>.md.
+4. Set status="IN_PROGRESS" in tasks.json; `git add -u .`.
+5. Implement **only** that spec. Run tests.
+6. If passing: set status="DONE", `git commit -am "task <id>: <title>"`.
+7. Loop back to step 1.
+
+# Hard rules
+- Never edit files for tasks already DONE.
+- Obey all style-guard rules (classNames, layout) in this repo.

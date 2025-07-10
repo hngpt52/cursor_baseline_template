@@ -1,0 +1,17 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+---
+description: Chat-shell visual guard
+globs: ["src/components/chat/**/*.{tsx,jsx}"]
+alwaysApply: true
+priority: 90
+---
+
+- Use only colours/tokens defined in tailwind.config.ts.
+- Do NOT add or delete JSX elements once a component exists.
+- You MAY insert React hooks, state, or data-fetch logic.
+- Keep className strings unchanged except to **add** Tailwind utilities,
+  never to rename or remove them.
