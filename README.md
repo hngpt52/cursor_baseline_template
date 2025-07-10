@@ -35,28 +35,33 @@ into src/ui/design.tokens.json.
 
 ## 🚀 Quick-start
 
-# 1  Scaffold project (example: Next.js 15 + pnpm)
+1  Scaffold project (example: Next.js 15 + pnpm)
+```bash
 npx create-next-app@latest my-app --ts --tailwind --package-manager pnpm
 cd my-app
-
-# 2  Inject baseline
+```
+2  Inject baseline
+```bash
 python path/to/baseline_template/tools/seed_baseline.py .
 git add . && git commit -m "seed baseline"
-
-# 3  Draft theme tokens
+```
+3  Draft theme tokens
+```bash
 cp THEME_TEMPLATE.json src/ui/design.tokens.json
-#   ⇢ fill colours / radii / shadows, then import in tailwind.config.ts
-
-# 4  Draft PRD
+   ⇢ fill colours / radii / shadows, then import in tailwind.config.ts
+```
+4  Draft PRD
+```bash
 cp PRD_TEMPLATE.md PRD.md
-#   ⇢ fill pages / dependencies
-
-# 5  Generate backlog
+   ⇢ fill pages / dependencies
+```
+5  Generate backlog
+```bash
 pnpm run gen:backlog          # runs tools/backlog_gen.py PRD.md
 git add .backlog PRD.md
 git commit -m "generate backlog from PRD"
-
-# 6  Open Cursor Auto mode → watch tasks execute
+```
+6  Open Cursor Auto mode → watch tasks execute
 
 
 
@@ -173,13 +178,11 @@ flush()
 print(f"Generated {len(ledger)} tasks → .backlog/")
 ```
 
-```text
 
 🖌️ Create src/ui/design.tokens.json
 	1.	Copy THEME_TEMPLATE.json → src/ui/design.tokens.json.
 	2.	Fill colours, radii, shadows, fonts, component overrides.
 	3.	Import tokens in tailwind.config.ts.
 	4.	ui_theme.mdc now forces Cursor to use only those tokens and the specified component library.
-```
 
-Happy building—fork, star, PRs welcome!
+### Happy building—fork, star, PRs welcome!
