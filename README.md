@@ -81,11 +81,11 @@ Rule file	Enforces
 🔧 Helper scripts (full code below)
 	•	seed_baseline.py — copies the baseline into a fresh repo and patches package.json.
 	•	backlog_gen.py — converts numbered ## headings in PRD.md into backlog tasks.
-
+```
 ⸻
 
 tools/seed_baseline.py
-```
+```python
 #!/usr/bin/env python3
 """Copy baseline_template into a target repo."""
 
@@ -144,7 +144,7 @@ if __name__ == "__main__":
 ⸻
 
 tools/backlog_gen.py
-```
+```python
 #!/usr/bin/env python3
 """Convert PRD.md headings → .backlog/tasks.json + tasks/*.md"""
 
