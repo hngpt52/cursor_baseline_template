@@ -1,0 +1,17 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+---
+description: obey THEME_TEMPLATE.json
+globs: ["src/**/*.{tsx,jsx,css}"]
+alwaysApply: true
+priority: 75
+---
+
+• Colours, radii, shadows, fonts MUST come from the chosen theme file
+  (src/ui/theme.*.json) or tailwind.config.ts which imports it.
+• Import UI elements **only** from the library declared under
+  "componentLibrary".  Ex:  `import { Card } from "@shadcn/ui"`.
+• If you need a new token or variant not present, STOP and ask Kyser.

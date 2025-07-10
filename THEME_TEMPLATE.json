@@ -1,0 +1,39 @@
+{
+    // === CORE STACK =========================================================
+    "componentLibrary": "shadcn",              // shadcn | chakra | radix | mui …
+    "framework":        "react",               // react | vue | svelte …
+  
+    // === GLOBAL TOKENS ======================================================
+    "colors": {
+      "primary":      "{{HEX}}",               // e.g.  "#FF007F"
+      "accent":       "{{HEX}}",
+      "background":   "{{HEX}}",
+      "foreground":   "{{HEX}}",
+      "error":        "{{HEX}}"
+    },
+    "radii": {
+      "card":   "{{CSS_RADIUS}}",              // "0.75rem"
+      "button": "{{CSS_RADIUS}}"
+    },
+    "shadows": {
+      "sm": "{{CSS_SHADOW}}",
+      "md": "{{CSS_SHADOW}}"
+    },
+    "fonts": {
+      "sans": "{{Font-Stack}}",                // "Geist, sans-serif"
+      "mono": "{{Font-Stack}}"
+    },
+  
+    // === COMPONENT-LEVEL OVERRIDES (OPTIONAL) ===============================
+    "components": {
+      "Card": {
+        "class": "border border-primary/30 bg-background text-foreground shadow-md"
+      },
+      "Button": {
+        "variants": {
+          "primary": "bg-primary text-background hover:bg-primary/90",
+          "ghost":   "bg-transparent text-primary hover:bg-primary/10"
+        }
+      }
+    }
+  }
