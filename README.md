@@ -16,15 +16,17 @@ Copy / clone this template into any brand-new project, run one command, and Curs
 baseline_template/
 ├─ .cursor/
 │  └─ rules/
-│     ├─ backlog.mdc        # 1-task loop rule  (alwaysApply)
-│     └─ chat_visual.mdc    # style guard example
+│     ├─ backlog.mdc          # 1-task loop rule  (alwaysApply)
+│     ├─ chat_visual.mdc      # style guard for chat components
+│     └─ ui_tokens.mdc        # enforces colour-token file (see below)
 ├─ .backlog/
-│  ├─ tasks.json            # stub ledger (auto-updated)
-│  └─ tasks/                # empty — generated later
+│  ├─ tasks.json              # stub ledger with a placeholder task
+│  └─ tasks/                  # kept empty – generator fills later
 ├─ tools/
-│  ├─ backlog_gen.py        # PRD → tasks converter  (60 LOC)
-│  └─ seed_baseline.py      # copies this baseline into any repo
-└─ PRD_TEMPLATE.md          # fill-in-the-blanks spec template
+│  ├─ backlog_gen.py          # PRD → .backlog generator (60 LOC)
+│  └─ seed_baseline.py        # copies this template into any repo
+├─ design_tokens.pinkgold.json# ← example colour-palette file
+└─ PRD_TEMPLATE.md            # fill-in-blanks spec template         # fill-in-the-blanks spec template
 
 ---
 
