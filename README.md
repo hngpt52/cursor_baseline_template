@@ -1,6 +1,6 @@
 # 🛠️  Baseline Template · Task-Master-Lite × Cursor
 
-```text
+
 A zero-dependency starter kit that gives you
 
 * Task-Master-style backlog control  
@@ -12,7 +12,7 @@ Clone / copy this template into any fresh repo, run one command, and Cursor will
 ---
 
 ## ✨ What’s inside
-
+```text
 baseline_template/
 ├─ .cursor/
 │  └─ rules/
@@ -27,13 +27,13 @@ baseline_template/
 │  └─ backlog_gen.py          PRD.md → .backlog generator
 ├─ PRD_TEMPLATE.md            fill-in-blanks project spec
 └─ THEME_TEMPLATE.json        blank design-token template
-
+```
 design.tokens.json is not shipped here.
 Each project creates it by copying & filling THEME_TEMPLATE.json
 into src/ui/design.tokens.json.
 
 
-🚀 Quick-start
+## 🚀 Quick-start
 
 # 1  Scaffold project (example: Next.js 15 + pnpm)
 npx create-next-app@latest my-app --ts --tailwind --package-manager pnpm
@@ -60,7 +60,7 @@ git commit -m "generate backlog from PRD"
 
 
 
-🛡️ Rules in play
+## 🛡️ Rules in play
 
 Rule file	Enforces
 .cursor/rules/backlog.mdc	Cursor must take one task at a time from .backlog/tasks.json.
@@ -72,7 +72,7 @@ Rule file	Enforces
 🔧 Helper scripts (full code below)
 	•	seed_baseline.py — copies the baseline into a fresh repo and patches package.json.
 	•	backlog_gen.py — converts numbered ## headings in PRD.md into backlog tasks.
-```
+
 
 ## Seed_baseline.py
 ```python
