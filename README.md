@@ -1,5 +1,6 @@
 # 🛠️  Baseline Template · Task-Master-Lite × Cursor
 
+```text
 A zero-dependency starter kit that gives you
 
 * Task-Master-style backlog control  
@@ -71,7 +72,7 @@ Rule file	Enforces
 🔧 Helper scripts (full code below)
 	•	seed_baseline.py — copies the baseline into a fresh repo and patches package.json.
 	•	backlog_gen.py — converts numbered ## headings in PRD.md into backlog tasks.
-
+```
 
 ## Seed_baseline.py
 ```python
@@ -172,12 +173,13 @@ flush()
 print(f"Generated {len(ledger)} tasks → .backlog/")
 ```
 
+```text
 
 🖌️ Create src/ui/design.tokens.json
 	1.	Copy THEME_TEMPLATE.json → src/ui/design.tokens.json.
 	2.	Fill colours, radii, shadows, fonts, component overrides.
 	3.	Import tokens in tailwind.config.ts.
 	4.	ui_theme.mdc now forces Cursor to use only those tokens and the specified component library.
-
+```
 
 Happy building—fork, star, PRs welcome!
