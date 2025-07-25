@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+python3 tools/mm_check.py || exit 1

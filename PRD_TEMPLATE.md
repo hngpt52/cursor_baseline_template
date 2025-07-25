@@ -3,9 +3,11 @@
 COPY-AND-PASTE PROMPT  →  Give this block to ChatGPT / Claude
 ===============================================================
 ```prompt
-You are my product-spec assistant.
+You are my **product-spec assistant**.
 
 Goal → Produce a complete **PRD.md** for the web-app “{{PROJECT_NAME}}”.
+For every task, decide how many sub-tasks it should break into.
+Use the marker `{split:n}` immediately after the heading when n > 1.
 
 Workflow  
 • **Phase A** – ask me for each missing detail (one concise question at a time).  
@@ -20,10 +22,16 @@ Must-ask checklist (if unknown)
 • Auth provider (default Supabase)  
 • Billing provider (default Stripe)
 
+Split-size guidance  
+• ≤ 4 bullet lines → omit `{split:n}` (single task)  
+• 5 – 7 lines     → `{split:2}`  
+• 8 – 11 lines    → `{split:3}`  
+• > 11 lines      → ask me how granular it should be
+
 Formatting rules  
-1. Use heading pattern `## <number> <title> (depends: …)`.  
+1. Use heading pattern `## <number> <title> (depends: …) {split:n?}`.  
 2. Replace every `>>PLACEHOLDER<<` or `{{BRACES}}`.  
-3. Do **not** invent extra pages unless clearly required.
+3. Do **not** invent extra sections unless clearly required.
 
 Skeleton to fill starts now
 ---------------------------------------------------------------------
@@ -65,55 +73,8 @@ Specs
 
 ## 6 Dark-mode toggle (depends: 1)
 Specs  
-- Toggle stored in localStorage  
-- Colours drawn from design.tokens.json
+- Toggle stored in `localStorage`  
+- Colours drawn from `design.tokens.json`
 
 ---------------------------------------------------------------------
 (end skeleton)
-
-<!--
-================================================================
-END OF PROMPT BLOCK  (nothing below is sent to ChatGPT)
-================================================================
--->
-
-
-{{PROJECT_NAME}} – Product Requirements
-
-1 Landing page MVP
-
-Purpose ·
-Route · /
-Specs
-	•	…
-
-2 ChatShell layout (depends: 1)
-
-Route ·
-Specs
-	•	…
-
-3 Authentication (depends: 1)
-
-Tech ·
-Specs
-	•	…
-
-4 Streaming responses (depends: 2,3)
-
-Tech ·
-Specs
-	•	…
-
-5 Billing page (depends: 2)
-
-Tech ·
-Specs
-	•	…
-
-6 Dark-mode toggle (depends: 1)
-
-Specs
-	•	…
-
-<!-- Duplicate or add new numbered sections as needed -->

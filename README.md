@@ -1,189 +1,172 @@
-# 🛠️  Baseline Template · Task-Master-Lite × Cursor
+Below is a clean, up-to-date README.md that matches the lean-baseline you just finalised (no stack templates, mind-map support, tools/ directory, etc.).
+Copy-paste it over your old one.
 
+⸻
+
+🛠️  Baseline Template · Task-Master-Lite × Cursor
 
 A zero-dependency starter kit that gives you
 
-* Task-Master-style backlog control  
-* Locked visual theming  
-* Works entirely offline — **no** MCP servers, API keys, or cloud calls.
+•	Structured Task-Master-style backlog (.backlog/)
+•	Universal Cursor guard-rails (no vendor/build drift, one-task loop, optional design-tokens lock-in)
+•	Optional mind-map validator to keep architecture & backlog in sync
+•	Works 100 % offline — no MCP servers, API keys, or cloud calls
 
-Clone / copy this template into any fresh repo, run one command, and Cursor will execute tasks **one at a time** under your guard-rails.
+Seed the baseline into any blank repo → draft PRD.md → run pnpm run gen:backlog → open Cursor Auto-mode.
+The agent will execute tasks one at a time under your guard-rails.
 
----
+⸻
 
-## ✨ What’s inside
-```text
+📁 What’s inside
+
 baseline_template/
 ├─ .cursor/
 │  └─ rules/
-│     ├─ backlog.mdc          one-task loop rule
-│     ├─ chat_visual.mdc      chat style guard
-│     └─ ui_theme.mdc         locks component lib + token file
-├─ .backlog/
-│  ├─ tasks.json              stub ledger with placeholder task
-│  └─ tasks/                  empty – generator fills later
-├─ tools/
-│  ├─ seed_baseline.py        copies baseline into a new repo
-│  └─ backlog_gen.py          PRD.md → .backlog generator
-├─ PRD_TEMPLATE.md            fill-in-blanks project spec
-└─ THEME_TEMPLATE.json        blank design-token template
-```
-design.tokens.json is not shipped here.
-Each project creates it by copying & filling THEME_TEMPLATE.json
-into src/ui/design.tokens.json.
+│     ├─ backlog.mdc            one-task loop
+│     ├─ no-vendor.mdc          ignore build/Pods/dist
+│     ├─ src_boundary.mdc       keep code inside src/ or Sources/
+│     └─ design_tokens_optional.mdc
+├─ .backlog/                    stub placeholder
+│  ├─ tasks.json
+│  └─ tasks/
+├─ tools/                       language-agnostic helpers
+│  ├─ seed_baseline.py
+│  ├─ backlog_gen.py
+│  ├─ auto_split_backlog.py
+│  ├─ gen_tailwind_from_tokens.py
+│  ├─ mm_check.py
+│  └─ mindmap.mm
+├─ PRD_TEMPLATE.md              copy → PRD.md, fill, generate tasks
+└─ THEME_TEMPLATE.json          optional design-token starter
 
+Nothing here is tech-specific — you’ll scaffold the actual app shell (Next, FastAPI, SwiftUI…) after seeding.
 
-## 🚀 Quick-start
+⸻
 
-1  Scaffold project (example: Next.js 15 + pnpm)
-```bash
-npx create-next-app@latest my-app --ts --tailwind --package-manager pnpm
-cd my-app
-```
-2  Inject baseline
-```bash
-python path/to/baseline_template/tools/seed_baseline.py .
+🚀 Quick-start
+
+# 1  Create an empty folder & enter it
+mkdir my-app && cd my-app
+
+# 2  Seed the baseline (path relative to your repo)
+python ../baseline_template/tools/seed_baseline.py .
+
 git add . && git commit -m "seed baseline"
-```
-3  Draft theme tokens
-```bash
+
+# 3  Draft PRD
+cp PRD_TEMPLATE.md PRD.md          # fill pages & deps
+
+# 4  Generate backlog
+pnpm init -y                       # (or cargo init / go mod init …)
+pnpm add -D python                 # if you need a local runtime
+pnpm run gen:backlog               # = python3 tools/backlog_gen.py PRD.md
+git add .backlog PRD.md && git commit -m "generate backlog"
+
+# 5  (optional) add design tokens
 cp THEME_TEMPLATE.json src/ui/design.tokens.json
-   ⇢ fill colours / radii / shadows, then import in tailwind.config.ts
-```
-4  Draft PRD
-```bash
-cp PRD_TEMPLATE.md PRD.md
-   ⇢ fill pages / dependencies
-```
-5  Generate backlog
-```bash
-pnpm run gen:backlog          # runs tools/backlog_gen.py PRD.md
-git add .backlog PRD.md
-git commit -m "generate backlog from PRD"
-```
-6  Open Cursor Auto mode → watch tasks execute
+# → fill colours/radii/shadows, then `pnpm run sync:tokens`
+
+# 6  Open Cursor Auto-mode → tasks flow, rules enforced
 
 
+⸻
 
-## 🛡️ Rules in play
+🛡️ Rules in play (always copied)
 
 Rule file	Enforces
-.cursor/rules/backlog.mdc	Cursor must take one task at a time from .backlog/tasks.json.
-.cursor/rules/chat_visual.mdc	Prevents styling drift in src/components/chat/**.
-.cursor/rules/ui_theme.mdc	Cursor must import from the chosen library (e.g. shadcn) and use only tokens in src/ui/design.tokens.json.
+.cursor/rules/backlog.mdc	Cursor must work on exactly one task at the top of .backlog/tasks.json.
+.cursor/rules/no-vendor.mdc	Keeps hands off vendor/, Pods/, build/, dist/…
+.cursor/rules/src_boundary.mdc	Source code must live under src/ (or Sources/ for Swift).
+.cursor/rules/design_tokens_optional.mdc	If src/ui/design.tokens.json exists, all colours/fonts/radii must come from it; otherwise the rule is silent.
 
+Add extra stack-specific rules in your repo as you wish — the baseline stays language-agnostic.
 
+⸻
 
-🔧 Helper scripts (full code below)
-	•	seed_baseline.py — copies the baseline into a fresh repo and patches package.json.
-	•	backlog_gen.py — converts numbered ## headings in PRD.md into backlog tasks.
+🔧 Helper scripts
 
+Script	Purpose
+seed_baseline.py	Copies .cursor/, .backlog/, tools/, PRD & token templates into the target repo and injects npm scripts if a package.json is present.
+backlog_gen.py	Turns numbered ##  headings in PRD.md into .backlog/tasks.json + individual task .md files.
+auto_split_backlog.py	(Optional) splits oversized tasks into smaller ones.
+gen_tailwind_from_tokens.py	Converts design.tokens.json into a Tailwind 4 config (only if you use Tailwind).
+mm_check.py	Pre-commit validator — ensures every new file has a matching node in mindmap.mm, and no task is marked DONE without representation in the map.
 
-## Seed_baseline.py
-```python
+All helper scripts live in tools/ and are copied verbatim.
+
+⸻
+
+seed_baseline.py (full)
+
 #!/usr/bin/env python3
-"""Copy baseline_template into a target repo."""
+"""
+Copy baseline_template into a blank repo (runs offline).
+Usage:  python ../baseline_template/tools/seed_baseline.py .
+"""
 
-import json, pathlib, shutil, sys, filecmp
+import json, pathlib, shutil, sys, filecmp, os
 
-HERE      = pathlib.Path(__file__).resolve().parent
-TEMPLATE  = HERE.parent
-TARGET    = pathlib.Path(sys.argv[1] if len(sys.argv) > 1 else ".").resolve()
+BASE   = pathlib.Path(__file__).resolve().parent
+ROOT   = BASE.parent            # baseline_template/
+TARGET = pathlib.Path(sys.argv[1] if len(sys.argv) > 1 else ".").resolve()
 
-def copytree(src: pathlib.Path, dst: pathlib.Path):
+def copy_tree(src: pathlib.Path, dst: pathlib.Path) -> None:
     if not src.exists(): return
     for item in src.iterdir():
-        dst_item = dst / item.name
+        d = dst / item.name
         if item.is_dir():
-            copytree(item, dst_item)
+            copy_tree(item, d)
         else:
-            dst_item.parent.mkdir(parents=True, exist_ok=True)
-            if dst_item.exists() and not filecmp.cmp(item, dst_item, shallow=False):
-                print(f"SKIP (exists) → {dst_item}")
-            else:
-                shutil.copy2(item, dst_item)
-                print(f"COPY → {dst_item}")
+            d.parent.mkdir(parents=True, exist_ok=True)
+            if d.exists() and filecmp.cmp(item, d, shallow=False):
+                continue
+            shutil.copy2(item, d)
+            print("COPY →", d.relative_to(TARGET))
 
-def init_backlog():
+def init_backlog() -> None:
     ledger = {"1": {"title": "Example placeholder task",
                     "status": "TODO", "deps": [], "complexity": 1}}
     (TARGET / ".backlog/tasks").mkdir(parents=True, exist_ok=True)
     (TARGET / ".backlog/tasks.json").write_text(json.dumps(ledger, indent=2))
     (TARGET / ".backlog/tasks/1.md").write_text("# Task 1 – Example\nTODO\n")
 
-def ensure_pkg_script():
+def ensure_scripts() -> None:
     pkg = TARGET / "package.json"
     if not pkg.exists(): return
-    data = json.loads(pkg.read_text())
-    data.setdefault("scripts", {})["gen:backlog"] = "python tools/backlog_gen.py PRD.md"
-    pkg.write_text(json.dumps(data, indent=2))
-    print("📝  scripts.gen:backlog added")
+    data = json.loads(pkg.read_text()); s = data.setdefault("scripts", {}); changed = False
+    mapping = {
+        "gen:backlog":     "python3 tools/backlog_gen.py PRD.md",
+        "refresh:backlog": "python3 tools/auto_split_backlog.py PRD.md",
+        "fix:prd":         "python3 tools/prd_sanitizer.py PRD.md",
+        "sync:tokens":     "python3 tools/gen_tailwind_from_tokens.py"
+    }
+    for k, v in mapping.items():
+        if k not in s: s[k] = v; changed = True
+    if changed:
+        pkg.write_text(json.dumps(data, indent=2) + os.linesep)
+        print("📝 npm scripts injected")
 
-def main():
-    print(f"🔧 Injecting baseline into: {TARGET}")
-    for folder in [".cursor", ".backlog", "tools"]:
-        copytree(TEMPLATE / folder, TARGET / folder)
+print(f"🔧 Seeding baseline into {TARGET}")
+for folder in [".cursor", ".backlog"]: copy_tree(ROOT / folder, TARGET / folder)
+copy_tree(ROOT / "tools", TARGET / "tools")
+for f in ["PRD_TEMPLATE.md", "THEME_TEMPLATE.json"]:
+    shutil.copy2(ROOT / f, TARGET / f); print("COPY →", f)
+if not (TARGET / ".backlog/tasks.json").exists(): init_backlog()
+ensure_scripts()
+print("✅ Baseline ready – git add . && git commit -m 'seed baseline'")
 
-    for file in ["PRD_TEMPLATE.md", "THEME_TEMPLATE.json"]:
-        copytree(TEMPLATE / file, TARGET / file)
 
-    if not (TARGET / ".backlog/tasks.json").exists():
-        init_backlog()
-    ensure_pkg_script()
-    print("\n✅  Baseline injected. Run: git add . && git commit -m 'seed baseline'")
+⸻
 
-if __name__ == "__main__":
-    main()
-```
+Mind-map workflow (optional but recommended)
+	1.	Keep a lightweight tools/mindmap.mm updated as you add folders / features.
+	2.	Install the pre-commit hook:
 
-## Backlog_gen.py
-```python
-#!/usr/bin/env python3
-"""Convert PRD.md headings → .backlog/tasks.json + tasks/*.md"""
+ln -s ../../tools/mm_check.py .git/hooks/pre-commit
+chmod +x .git/hooks/pre-commit
 
-import json, pathlib, re, sys
-from collections import OrderedDict
+	3.	Any commit touching files without matching nodes will fail until you update the map or amend the task spec — forcing Cursor (or you) to stay honest.
 
-if len(sys.argv) != 2:
-    sys.exit("Usage: backlog_gen.py PRD.md")
+⸻
 
-prd  = pathlib.Path(sys.argv[1])
-out  = pathlib.Path(".backlog/tasks")
-out.mkdir(parents=True, exist_ok=True)
-
-ledger, tid, title, deps, body = OrderedDict(), 0, "", [], []
-
-def flush():
-    global tid, title, deps, body
-    if not title: return
-    tid += 1
-    (out / f"{tid}.md").write_text(f"# Task {tid} – {title}\n" +
-                                   ("\n".join(body) or "TODO") + "\n")
-    ledger[str(tid)] = {"title": title, "status": "TODO",
-                        "deps": deps, "complexity": 1}
-    title, deps, body[:] = "", [], []
-
-for line in prd.read_text().splitlines():
-    m = re.match(r"^##\s+\d+\s+(.+?)(?:\s+$begin:math:text$depends:\\s*([\\d,\\s]+)$end:math:text$)?$", line)
-    if m:
-        flush()
-        title = m.group(1).strip()
-        deps  = [int(x) for x in m.group(2).split(",")] if m.group(2) else []
-    else:
-        body.append(line.rstrip())
-
-flush()
-(pathlib.Path(".backlog/tasks.json")
- ).write_text(json.dumps(ledger, indent=2))
-print(f"Generated {len(ledger)} tasks → .backlog/")
-```
-
-```text
-🖌️ Create src/ui/design.tokens.json
-	1.	Copy THEME_TEMPLATE.json → src/ui/design.tokens.json.
-	2.	Fill colours, radii, shadows, fonts, component overrides.
-	3.	Import tokens in tailwind.config.ts.
-	4.	ui_theme.mdc now forces Cursor to use only those tokens and the specified component library.
-```
-
-### Happy building—fork, star, PRs welcome!
+Happy shipping — PRs & feedback welcome!
